@@ -3,6 +3,7 @@
     Method(s) :- solver(n)
 """
 
+
 def solver(n):
     """
     Find the sum of digit of 2^n.
@@ -13,13 +14,25 @@ def solver(n):
     Return
         Sum of digits of 2^n.
     """
-    product = 1
+    product = "1"
     total = 0
 
     for _ in range(1, n + 1):
-        product = product * 2
+        carry = 0
+        val2 = 0
+        product_copy = product[::-1]
+        product = ""
+        for digit in product_copy:
+            val = carry + int(digit) * 2
+            val2 = val % 10
+            carry = val // 10
 
-    for digit in str(product):
+            product = str(val2) + product
+
+        if carry:
+            product = str(carry) + product
+
+    for digit in product:
         total += int(digit)
 
     return total
